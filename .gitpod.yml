@@ -1,11 +1,16 @@
 image:
   file: .gitpod.Dockerfile
-
-# List the ports you want to expose and what to do when they are served. See https://www.gitpod.io/docs/43_config_ports/
-ports:
-- port: 3000
-
-# List the start up tasks. You can start them in parallel in multiple terminals. See https://www.gitpod.io/docs/44_config_start_tasks/
 tasks:
-- init: flutter upgrade # runs during prebuild
-  command: flutter upgrade
+  - init: >
+      flutter upgrade &&
+      flutter pub get &&
+      flutter build web
+    command: >
+      flutter run --web-port=8080 --web-hostname=0.0.0.0
+ports:
+  - port: 8080
+    onOpen: open-preview
+vscode:
+  extensions:
+    - Dart-Code.dart-code@3.5.1:W6zqgIED1gxtkBH/pbfGXA==
+    - Dart-Code.flutter@3.5.1:0FyuzXye7dV19PNst3+Llg==
